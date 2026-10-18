@@ -1,0 +1,399 @@
+/* ==========================================================================
+   DreamDeliveryRoutes.css — Illustrated Dream Route Navigator
+   ========================================================================== */
+
+.dream-routes {
+  background: var(--bg-surface);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+[data-theme="night"] .dream-routes {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Header */
+.routes-window-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1.25rem;
+  background: var(--color-blush);
+  border-bottom: 1.5px solid var(--border-color);
+  gap: 0.75rem;
+}
+
+[data-theme="night"] .routes-window-header {
+  background: var(--bg-surface-soft);
+}
+
+.routes-header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-rounded);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-cocoa);
+  letter-spacing: 0.04em;
+}
+
+[data-theme="night"] .routes-header-title {
+  color: var(--color-dream);
+}
+
+.compass-icon {
+  color: var(--color-berry);
+}
+
+[data-theme="night"] .compass-icon {
+  color: var(--color-dream);
+}
+
+.flight-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-rounded);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--color-cocoa-muted);
+}
+
+.flight-status-tag.in-flight {
+  color: var(--color-berry);
+  border-color: var(--color-berry);
+  background: var(--color-blush-soft);
+}
+
+[data-theme="night"] .flight-status-tag.in-flight {
+  color: var(--color-dream);
+  border-color: var(--color-dream);
+  background: rgba(244, 213, 141, 0.15);
+}
+
+.flight-status-tag.completed {
+  color: #2e7d32;
+  border-color: #4caf50;
+  background: #e8f5e9;
+}
+
+[data-theme="night"] .flight-status-tag.completed {
+  color: #a5d6a7;
+  border-color: #66bb6a;
+  background: #1b3820;
+}
+
+.flight-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a0aec0;
+}
+
+.flight-status-tag.in-flight .flight-dot {
+  background: #3cb371;
+  box-shadow: 0 0 8px #3cb371;
+  animation: pulseGlow 1.5s infinite;
+}
+
+.flight-status-tag.completed .flight-dot {
+  background: #4caf50;
+  box-shadow: 0 0 6px #4caf50;
+}
+
+/* Body Layout */
+.routes-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .routes-body {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 2.5rem;
+    padding: 2.5rem;
+    align-items: start;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Illustrated Map SVG
+   -------------------------------------------------------------------------- */
+.illustrated-map-wrapper {
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-color);
+  overflow: hidden;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2), var(--shadow-sm);
+  background: #201127;
+}
+
+.illustrated-map-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Map Markers */
+.destination-marker {
+  transition: transform 0.2s ease;
+  outline: none;
+}
+
+.destination-marker:hover,
+.destination-marker:focus-visible {
+  filter: drop-shadow(0 0 8px #f4d58d);
+}
+
+.marker-pulse-ring {
+  animation: markerPulse 2s infinite ease-out;
+}
+
+@keyframes markerPulse {
+  0% {
+    r: 9;
+    opacity: 0.9;
+  }
+  100% {
+    r: 22;
+    opacity: 0;
+  }
+}
+
+.path-active-pulse {
+  animation: dashAnimation 1.5s linear infinite;
+}
+
+@keyframes dashAnimation {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+
+.pip-flight-avatar {
+  transition: transform 0.05s linear;
+  pointer-events: none;
+}
+
+.pip-flight-avatar.flying {
+  filter: drop-shadow(0 0 10px #f4d58d);
+}
+
+/* --------------------------------------------------------------------------
+   Destination Info Panel & Dispatch
+   -------------------------------------------------------------------------- */
+.routes-info-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.destination-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.destination-title {
+  font-family: var(--font-editorial);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--color-cocoa);
+  line-height: 1.2;
+}
+
+[data-theme="night"] .destination-title {
+  color: #fff9f4;
+}
+
+.destination-residents {
+  font-family: var(--font-rounded);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-berry);
+}
+
+[data-theme="night"] .destination-residents {
+  color: var(--color-dream);
+}
+
+.destination-cargo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  background: var(--bg-surface-soft);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+}
+
+.cargo-label {
+  font-family: var(--font-rounded);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-cocoa-muted);
+}
+
+[data-theme="night"] .cargo-label {
+  color: var(--text-muted);
+}
+
+.cargo-value {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-cocoa);
+}
+
+[data-theme="night"] .cargo-value {
+  color: var(--text-main);
+}
+
+.destination-story {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+/* Quick Destination Selector Pills */
+.destination-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.dest-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  background: var(--bg-surface-soft);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-rounded);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-cocoa);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.dest-pill:hover {
+  background: var(--color-blush);
+  border-color: var(--color-berry);
+  transform: translateY(-1px);
+}
+
+[data-theme="night"] .dest-pill {
+  color: var(--text-main);
+}
+
+[data-theme="night"] .dest-pill:hover {
+  background: rgba(244, 213, 141, 0.15);
+  border-color: var(--color-dream);
+}
+
+.dest-pill.active {
+  background: var(--color-berry);
+  color: #ffffff;
+  border-color: var(--color-berry);
+  box-shadow: 0 2px 8px rgba(163, 64, 99, 0.28);
+}
+
+[data-theme="night"] .dest-pill.active {
+  background: var(--color-dream);
+  color: var(--color-cocoa);
+  border-color: var(--color-dream);
+  box-shadow: 0 2px 10px rgba(244, 213, 141, 0.3);
+}
+
+.pill-star {
+  font-size: 0.7rem;
+}
+
+/* Delivery Actions & Completed Banner */
+.delivery-action-area {
+  margin-top: 0.5rem;
+}
+
+.deliver-btn {
+  width: 100%;
+}
+
+.deliver-btn:disabled {
+  opacity: 0.85;
+  cursor: wait;
+}
+
+.spin-sparkle {
+  animation: starTwinkle 1s infinite;
+}
+
+.delivery-completed-card {
+  background: #edf7ed;
+  border: 1.5px solid #a5d6a7;
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  box-shadow: 0 4px 14px rgba(76, 175, 80, 0.15);
+  animation: dreamDrift 0.3s ease-out;
+}
+
+[data-theme="night"] .delivery-completed-card {
+  background: #172c1c;
+  border-color: #388e3c;
+}
+
+.completed-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-rounded);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2e7d32;
+}
+
+[data-theme="night"] .completed-header {
+  color: #a5d6a7;
+}
+
+.check-icon {
+  color: #2e7d32;
+}
+
+[data-theme="night"] .check-icon {
+  color: #81c784;
+}
+
+.completed-msg {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #1b5e20;
+}
+
+[data-theme="night"] .completed-msg {
+  color: #c8e6c9;
+}
+
+.re-deliver-btn {
+  margin-top: 0.35rem;
+  align-self: flex-start;
+  padding: 0.55rem 1rem;
+  font-size: 0.85rem;
+}

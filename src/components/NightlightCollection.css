@@ -1,0 +1,549 @@
+/* ==========================================================================
+   NightlightCollection.css — Interactive Ambient Glow Studio
+   ========================================================================== */
+
+.nightlight-collection {
+  background: var(--bg-surface);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+[data-theme="night"] .nightlight-collection {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Header */
+.nightlight-window-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1.25rem;
+  background: var(--color-blush);
+  border-bottom: 1.5px solid var(--border-color);
+  gap: 0.75rem;
+}
+
+[data-theme="night"] .nightlight-window-header {
+  background: var(--bg-surface-soft);
+}
+
+.nightlight-header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-rounded);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-cocoa);
+  letter-spacing: 0.04em;
+}
+
+[data-theme="night"] .nightlight-header-title {
+  color: var(--color-dream);
+}
+
+.lamp-icon {
+  color: var(--color-berry);
+}
+
+[data-theme="night"] .lamp-icon {
+  color: var(--color-dream);
+}
+
+.power-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-rounded);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+}
+
+.power-status-tag.online {
+  color: var(--color-cocoa);
+  border-color: rgba(92, 64, 51, 0.25);
+}
+
+[data-theme="night"] .power-status-tag.online {
+  color: var(--color-dream);
+  border-color: rgba(244, 213, 141, 0.3);
+}
+
+.status-indicator-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3cb371;
+  box-shadow: 0 0 6px #3cb371;
+}
+
+.power-status-tag.standby .status-indicator-dot {
+  background: #a0aec0;
+  box-shadow: none;
+}
+
+/* Body Layout */
+.nightlight-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .nightlight-body {
+    padding: 2.5rem;
+    gap: 2.5rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Top Rail: 3 Selectable Imaginary Lamps
+   -------------------------------------------------------------------------- */
+.lamp-selector-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.rail-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-rounded);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-cocoa-muted);
+}
+
+[data-theme="night"] .rail-eyebrow {
+  color: var(--text-muted);
+}
+
+.lamp-cards-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 720px) {
+  .lamp-cards-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lamp-select-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  background: var(--bg-surface-soft);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.22s ease;
+  position: relative;
+}
+
+.lamp-select-card:hover {
+  background: var(--color-blush-soft);
+  border-color: var(--color-berry);
+  transform: translateY(-2px);
+}
+
+[data-theme="night"] .lamp-select-card:hover {
+  background: rgba(244, 213, 141, 0.12);
+  border-color: var(--color-dream);
+}
+
+.lamp-select-card.active {
+  background: var(--bg-surface);
+  border-color: var(--color-berry);
+  box-shadow: 0 4px 16px rgba(163, 64, 99, 0.18);
+}
+
+[data-theme="night"] .lamp-select-card.active {
+  border-color: var(--color-dream);
+  box-shadow: 0 4px 18px rgba(244, 213, 141, 0.22);
+}
+
+.lamp-thumb-wrapper {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-sm);
+  background: var(--color-cream);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+[data-theme="night"] .lamp-thumb-wrapper {
+  background: #1f1224;
+}
+
+.lamp-thumb-img {
+  max-width: 85%;
+  max-height: 85%;
+  object-fit: contain;
+}
+
+.selected-check-badge {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  font-size: 0.65rem;
+  color: var(--color-berry);
+  font-weight: 700;
+}
+
+[data-theme="night"] .selected-check-badge {
+  color: var(--color-dream);
+}
+
+.lamp-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  flex-grow: 1;
+}
+
+.lamp-card-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.lamp-card-name {
+  font-family: var(--font-rounded);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-cocoa);
+}
+
+[data-theme="night"] .lamp-card-name {
+  color: var(--text-main);
+}
+
+.color-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.lamp-card-tagline {
+  font-size: 0.74rem;
+  color: var(--color-cocoa-muted);
+}
+
+[data-theme="night"] .lamp-card-tagline {
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Testing Chamber: Display Stage & Controls
+   -------------------------------------------------------------------------- */
+.chamber-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (min-width: 860px) {
+  .chamber-container {
+    grid-template-columns: 360px 1fr;
+    gap: 3rem;
+  }
+}
+
+/* Ambient Stage */
+.chamber-display-stage {
+  position: relative;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #ffffff 0%, var(--color-cream-dim) 100%);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+[data-theme="night"] .chamber-display-stage {
+  background: radial-gradient(circle at center, #2e1a35 0%, #170d1d 100%);
+}
+
+/* Real Ambient Glow Halo derived from CSS variables */
+.chamber-glow-halo {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(var(--lamp-glow-color), var(--lamp-glow-alpha)) 0%,
+    rgba(var(--lamp-glow-color), 0) 70%
+  );
+  filter: blur(var(--lamp-glow-blur));
+  transition: all 0.25s ease;
+  z-index: 1;
+}
+
+.chamber-glow-halo.dimmed {
+  opacity: 0;
+}
+
+.chamber-lamp-pod {
+  position: relative;
+  z-index: 2;
+  width: 200px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chamber-lamp-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: all 0.25s ease;
+}
+
+.chamber-lamp-img.lit {
+  filter: drop-shadow(
+    0 0 var(--lamp-glow-blur) rgba(var(--lamp-glow-color), var(--lamp-glow-alpha))
+  ) brightness(var(--lamp-filter-brightness));
+}
+
+.chamber-lamp-img.unlit {
+  opacity: 0.45;
+  filter: grayscale(45%) brightness(0.7);
+}
+
+.chamber-spec-chip {
+  position: absolute;
+  bottom: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-rounded);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-cocoa);
+  z-index: 3;
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="night"] .chamber-spec-chip {
+  color: var(--text-main);
+}
+
+.spec-color-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* Controls Panel */
+.chamber-controls-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.lamp-header-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.selected-lamp-title {
+  font-family: var(--font-editorial);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-cocoa);
+  line-height: 1.2;
+}
+
+[data-theme="night"] .selected-lamp-title {
+  color: #fff9f4;
+}
+
+.selected-lamp-desc {
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.lamp-quirk-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  background: var(--color-blush-soft);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  font-size: 0.82rem;
+  color: var(--color-cocoa);
+  margin-top: 0.25rem;
+}
+
+[data-theme="night"] .lamp-quirk-box {
+  background: var(--bg-surface-soft);
+  color: var(--text-main);
+}
+
+.quirk-star {
+  color: var(--color-berry);
+}
+
+[data-theme="night"] .quirk-star {
+  color: var(--color-dream);
+}
+
+/* Physical Control Deck */
+.control-deck-card {
+  background: var(--bg-surface-soft);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.control-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.control-row.power-row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.control-label-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.control-title {
+  font-family: var(--font-rounded);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-cocoa);
+}
+
+[data-theme="night"] .control-title {
+  color: var(--text-main);
+}
+
+.control-hint {
+  font-size: 0.75rem;
+  color: var(--color-cocoa-muted);
+}
+
+[data-theme="night"] .control-hint {
+  color: var(--text-muted);
+}
+
+/* Power Button */
+.power-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-rounded);
+  font-size: 0.88rem;
+  font-weight: 700;
+  border: 1.5px solid transparent;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.power-switch-btn.on {
+  background: var(--color-berry);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(163, 64, 99, 0.35);
+}
+
+[data-theme="night"] .power-switch-btn.on {
+  background: var(--color-dream);
+  color: var(--color-cocoa);
+  box-shadow: 0 4px 14px rgba(244, 213, 141, 0.35);
+}
+
+.power-switch-btn.off {
+  background: var(--bg-surface);
+  color: var(--color-cocoa-muted);
+  border-color: var(--border-color);
+}
+
+.power-switch-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Slider */
+.slider-label-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.intensity-numeric {
+  font-family: var(--font-rounded);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-berry);
+}
+
+[data-theme="night"] .intensity-numeric {
+  color: var(--color-dream);
+}
+
+.glow-slider.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  color: var(--color-cocoa-muted);
+  font-family: var(--font-rounded);
+  font-weight: 500;
+  margin-top: 0.35rem;
+}
+
+[data-theme="night"] .slider-ticks {
+  color: var(--text-muted);
+}

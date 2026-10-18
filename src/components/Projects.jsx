@@ -1,12 +1,17 @@
-import React from 'react';
-import { Sparkles, Music, Lamp, Compass, ArrowUpRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { Sparkles, Music, Lamp, Compass, ArrowDown, ExternalLink } from 'lucide-react';
 import './Projects.css';
 import lullabyImg from '../../assets/pip_lullaby_box.png';
 import lanternImg from '../../assets/pip_dream_lantern.png';
 import routesImg from '../../assets/pip_portrait.png';
 
-const projects = [
+import LullabyLab from './LullabyLab.jsx';
+import NightlightCollection from './NightlightCollection.jsx';
+import DreamDeliveryRoutes from './DreamDeliveryRoutes.jsx';
+
+const PROJECT_CARDS = [
   {
+    id: 'lullaby',
     num: '01',
     title: 'The Lullaby Lab',
     category: 'Audio Engineering',
@@ -16,9 +21,11 @@ const projects = [
     img: lullabyImg,
     alt: 'Pip’s handcrafted Lullaby Music Box decorated with stars and musical notes',
     bgTone: 'tone-blush',
-    badge: 'Audio Prototype',
+    badge: 'Interactive Audio',
+    actionLabel: 'Launch Music Box',
   },
   {
+    id: 'nightlight',
     num: '02',
     title: 'Nightlight Collection',
     category: 'Lighting Design',
@@ -28,9 +35,11 @@ const projects = [
     img: lanternImg,
     alt: 'Pip’s glowing dream lantern with warm amber candlelight',
     bgTone: 'tone-dream',
-    badge: 'Physical Artifact',
+    badge: 'Ambient Gallery',
+    actionLabel: 'Test Nightlights',
   },
   {
+    id: 'routes',
     num: '03',
     title: 'Dream Delivery Routes',
     category: 'Bedtime Cartography',
@@ -40,13 +49,24 @@ const projects = [
     img: routesImg,
     alt: 'Illustration of Pip charting nocturnal flight coordinates across the stars',
     bgTone: 'tone-cream',
-    badge: 'Route Engine',
+    badge: 'Illustrated Map',
+    actionLabel: 'Navigate Routes',
   },
 ];
 
 function Projects() {
+  const [activeProjectId, setActiveProjectId] = useState('lullaby');
+
+  const handleCardClick = (id) => {
+    setActiveProjectId(id);
+    const workbenchEl = document.getElementById('project-workbench');
+    if (workbenchEl) {
+      workbenchEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  };
+
   return (
-    <section className="projects-section" id="projects" aria-label="Showcase Projects">
+    <section className="projects-section" id="projects" aria-label="Showcase Projects and Interactive Workshops">
       {/* Full-width Section Header */}
       <div className="section-header">
         <div className="eyebrow-badge">
@@ -55,21 +75,32 @@ function Projects() {
         </div>
         <h2 className="section-title">Showcase Projects</h2>
         <p className="section-subtitle">
-          Explore three of Pip’s signature bedtime inventions. Each project is currently
-          undergoing sleepy quality testing in the Midnight Nursery.
+          Explore Pip’s three signature bedtime inventions. Select any project card below to launch
+          its live interactive testing workbench.
         </p>
       </div>
 
-      {/* Balanced 3-Column Grid */}
+      {/* Balanced 3-Column Grid of Project Cards */}
       <div className="project-grid">
-        {projects.map((project) => {
+        {PROJECT_CARDS.map((project) => {
           const IconComponent = project.icon;
+          const isActive = activeProjectId === project.id;
+
           return (
             <article
-              key={project.num}
-              className="project-card"
+              key={project.id}
+              className={`project-card ${isActive ? 'active-workshop-card' : ''}`}
               tabIndex={0}
-              aria-label={`${project.title} — ${project.category}`}
+              onClick={() => handleCardClick(project.id)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleCardClick(project.id);
+                }
+              }}
+              role="button"
+              aria-pressed={isActive}
+              aria-label={`${project.title} — ${project.category}. Click to open interactive workbench.`}
             >
               {/* Card Window Topbar */}
               <div className="card-topbar">
@@ -108,16 +139,52 @@ function Projects() {
                 <p className="card-desc">{project.description}</p>
 
                 <div className="card-footer">
-                  <span className="preview-badge">{project.badge}</span>
-                  <span className="preview-action" aria-hidden="true">
-                    <span>Inspect</span>
-                    <ArrowUpRight size={14} />
+                  <span className={`preview-badge ${isActive ? 'active-badge' : ''}`}>
+                    {isActive ? '✦ Active Workbench' : project.badge}
+                  </span>
+                  <span className="card-action-trigger" aria-hidden="true">
+                    <span>{isActive ? 'Open Below' : project.actionLabel}</span>
+                    <ArrowDown size={14} className={isActive ? 'bounce-arrow' : ''} />
                   </span>
                 </div>
               </div>
             </article>
           );
         })}
+      </div>
+
+      {/* Dedicated Interactive Testing Workbench */}
+      <div className="workbench-anchor-wrapper" id="project-workbench">
+        {/* Whimsical Workbench Tab Switcher Bar */}
+        <div className="workbench-tab-bar" role="tablist" aria-label="Interactive Project Workbenches">
+          <span className="workbench-label">ACTIVE WORKBENCH:</span>
+          <div className="workbench-tab-buttons">
+            {PROJECT_CARDS.map((proj) => {
+              const Icon = proj.icon;
+              const isCurrent = activeProjectId === proj.id;
+              return (
+                <button
+                  key={proj.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isCurrent}
+                  className={`workbench-tab-btn ${isCurrent ? 'selected' : ''}`}
+                  onClick={() => setActiveProjectId(proj.id)}
+                >
+                  <Icon size={15} />
+                  <span>{proj.title}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Live Active Workshop Component */}
+        <div className="workbench-stage" role="tabpanel">
+          {activeProjectId === 'lullaby' && <LullabyLab isActive={activeProjectId === 'lullaby'} />}
+          {activeProjectId === 'nightlight' && <NightlightCollection isActive={activeProjectId === 'nightlight'} />}
+          {activeProjectId === 'routes' && <DreamDeliveryRoutes isActive={activeProjectId === 'routes'} />}
+        </div>
       </div>
     </section>
   );
