@@ -39,16 +39,101 @@
   background: linear-gradient(90deg, transparent, var(--border-color), transparent);
 }
 
-.divider-stars {
+.divider-stars-btn {
+  background: transparent;
+  border: none;
   font-family: var(--font-rounded);
   color: var(--color-berry);
   font-size: 0.95rem;
   letter-spacing: 0.25em;
-  opacity: 0.8;
+  opacity: 0.85;
+  cursor: pointer;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  transition: all 0.2s ease;
+  user-select: none;
 }
 
-[data-theme="night"] .divider-stars {
+.divider-stars-btn:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  color: var(--color-primary, #e25575);
+  text-shadow: 0 0 8px rgba(226, 85, 117, 0.4);
+}
+
+.divider-stars-btn:focus-visible {
+  outline: 2px dashed var(--color-berry);
+  outline-offset: 4px;
+}
+
+[data-theme="night"] .divider-stars-btn {
   color: var(--color-dream);
+}
+
+[data-theme="night"] .divider-stars-btn:hover {
+  color: #ffdf79;
+  text-shadow: 0 0 8px rgba(255, 223, 121, 0.6);
+}
+
+/* Footer Secret Stardust Toast */
+.footer-secret-toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #fff0f3;
+  border: 1.5px solid #ffd1dc;
+  border-radius: 12px;
+  padding: 0.65rem 1rem;
+  color: #a34063;
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: 0 6px 16px rgba(163, 64, 99, 0.15);
+  animation: toastFade 0.3s ease;
+  flex-wrap: wrap;
+}
+
+[data-theme="night"] .footer-secret-toast {
+  background: #2b173e;
+  border-color: #f4d58d;
+  color: #ffdf79;
+}
+
+.stardust-toast-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stardust-icon {
+  color: #f4d58d;
+  animation: starTwinkle 1.5s infinite;
+}
+
+.stardust-celebration-link {
+  background: var(--color-berry, #a34063);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.stardust-celebration-link:hover {
+  opacity: 0.9;
+}
+
+[data-theme="night"] .stardust-celebration-link {
+  background: #f4d58d;
+  color: #1e1329;
+}
+
+@keyframes toastFade {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Footer Main Content */
@@ -121,6 +206,52 @@
   font-size: 0.88rem;
   line-height: 1.6;
   color: var(--text-muted);
+}
+
+/* Mobile / Accessible Konami Trigger Button */
+.footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.mobile-konami-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--bg-surface);
+  color: var(--color-berry, #a34063);
+  border: 1.5px dashed var(--color-berry, #a34063);
+  padding: 0.65rem 1.05rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-rounded);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.mobile-konami-trigger:hover {
+  background: #fff0f3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(163, 64, 99, 0.2);
+}
+
+.konami-star-icon {
+  color: #f59e0b;
+}
+
+[data-theme="night"] .mobile-konami-trigger {
+  background: #231633;
+  color: #ffdf79;
+  border-color: #f4d58d;
+}
+
+[data-theme="night"] .mobile-konami-trigger:hover {
+  background: #2f1d45;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 /* Back to Top Button */

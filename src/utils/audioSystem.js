@@ -137,3 +137,28 @@ export const playSoftClickSfx = () => {
   if (!soundEnabled) return;
   playGentleChime(880.0, 60, 0.08);
 };
+
+/**
+ * Secret Celebration Fanfare (Konami Code Easter Egg):
+ * 5-note joyful music-box arpeggio.
+ */
+export const playSecretFanfareSfx = () => {
+  if (!soundEnabled) return;
+  playGentleChime(523.25, 180, 0.16); // C5
+  setTimeout(() => playGentleChime(659.25, 180, 0.16), 100); // E5
+  setTimeout(() => playGentleChime(783.99, 200, 0.17), 200); // G5
+  setTimeout(() => playGentleChime(1046.5, 260, 0.18), 300); // C6
+  setTimeout(() => playGentleChime(1318.5, 600, 0.20), 420); // E6
+};
+
+/**
+ * Stardust Discovery Chime:
+ * Twinkling 3-note starlight chime.
+ */
+export const playStardustFoundSfx = () => {
+  if (!soundEnabled) return;
+  playGentleChime(783.99, 150, 0.14); // G5
+  setTimeout(() => playGentleChime(987.77, 180, 0.15), 90); // B5
+  setTimeout(() => playGentleChime(1174.7, 450, 0.17), 180); // D6
+};
+

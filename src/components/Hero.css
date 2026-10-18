@@ -450,6 +450,53 @@
   color: var(--color-dream);
 }
 
+/* Secret Pip Easter Egg Toast */
+.pip-secret-toast {
+  position: absolute;
+  top: -12%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fff0f3;
+  color: #a34063;
+  border: 2px solid #ffd1dc;
+  border-radius: var(--radius-pill);
+  padding: 0.55rem 1.15rem;
+  font-size: 0.84rem;
+  font-weight: 700;
+  box-shadow: 0 10px 25px -4px rgba(163, 64, 99, 0.35);
+  white-space: nowrap;
+  z-index: 10;
+  animation: toastPopIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+}
+
+[data-theme="night"] .pip-secret-toast {
+  background: #2b173e;
+  color: #ffdf79;
+  border-color: #f4d58d;
+  box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.6);
+}
+
+.secret-sparkle-icon {
+  color: #f4d58d;
+  flex-shrink: 0;
+  animation: starTwinkle 1.5s infinite;
+}
+
+@keyframes toastPopIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 12px) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pip-character-container {
     transition: none !important;
@@ -460,5 +507,8 @@
   }
   .moonlit-glow {
     transition: none !important;
+  }
+  .pip-secret-toast {
+    animation: none !important;
   }
 }

@@ -31,6 +31,7 @@ function NavBar({ theme, onToggleTheme, soundEnabled, onToggleSound }) {
             <a href="#about" className="nav-link">About</a>
             <a href="#story" className="nav-link">Story</a>
             <a href="#projects" className="nav-link">Projects</a>
+            <a href="#guestbook" className="nav-link">Guestbook</a>
           </nav>
         </div>
 

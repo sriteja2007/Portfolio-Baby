@@ -2,14 +2,18 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Sparkles, Moon, ArrowRight, Heart } from 'lucide-react';
 import './Hero.css';
 import heroImg from '../../assets/pip_avatar_cloud.png';
-import { playPipReactionSfx } from '../utils/audioSystem.js';
+import { playPipReactionSfx, playStardustFoundSfx } from '../utils/audioSystem.js';
 
 function Hero() {
   const [tilt, setTilt] = useState({ x: 0, y: 0, glowX: 0, glowY: 0 });
   const [isReacting, setIsReacting] = useState(false);
   const [floatingHeart, setFloatingHeart] = useState(false);
+  const [secretToast, setSecretToast] = useState(null);
   const stageRef = useRef(null);
   const reactionTimerRef = useRef(null);
+  const secretClickCountRef = useRef(0);
+  const resetClicksTimerRef = useRef(null);
+  const toastTimerRef = useRef(null);
 
   // Desktop subtle cursor tracking tilt
   const handleMouseMove = (e) => {
@@ -37,13 +41,33 @@ function Hero() {
     setTilt({ x: 0, y: 0, glowX: 0, glowY: 0 });
   };
 
-  // Touch and click cozy sleepy reaction
-  const triggerSleepyReaction = () => {
+  // Touch and click cozy sleepy reaction + Repeated Click Secret
+  const handlePipClick = () => {
     if (reactionTimerRef.current) clearTimeout(reactionTimerRef.current);
+    if (resetClicksTimerRef.current) clearTimeout(resetClicksTimerRef.current);
+
+    secretClickCountRef.current += 1;
+
+    // Check if secret threshold reached (5 clicks)
+    if (secretClickCountRef.current >= 5) {
+      secretClickCountRef.current = 0;
+      setSecretToast('Pip was saving this dream just for you! 🌟');
+      playStardustFoundSfx();
+
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+      toastTimerRef.current = setTimeout(() => {
+        setSecretToast(null);
+      }, 5000);
+    } else {
+      playPipReactionSfx();
+      // Reset count after 2.5s of inactivity
+      resetClicksTimerRef.current = setTimeout(() => {
+        secretClickCountRef.current = 0;
+      }, 2500);
+    }
 
     setIsReacting(true);
     setFloatingHeart(true);
-    playPipReactionSfx();
 
     reactionTimerRef.current = setTimeout(() => {
       setIsReacting(false);
@@ -54,6 +78,8 @@ function Hero() {
   useEffect(() => {
     return () => {
       if (reactionTimerRef.current) clearTimeout(reactionTimerRef.current);
+      if (resetClicksTimerRef.current) clearTimeout(resetClicksTimerRef.current);
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
     };
   }, []);
 
@@ -125,19 +151,19 @@ function Hero() {
           <div className="floating-cloud cloud-left" aria-hidden="true"></div>
           <div className="floating-cloud cloud-right" aria-hidden="true"></div>
 
-          {/* Interactive Pip Character with Gaze & Tap Reaction */}
+          {/* Interactive Pip Character with Gaze & Tap Reaction + Secret Easter Egg */}
           <div
             className={`pip-character-container ${isReacting ? 'is-reacting' : ''}`}
-            onClick={triggerSleepyReaction}
+            onClick={handlePipClick}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                triggerSleepyReaction();
+                handlePipClick();
               }
             }}
             tabIndex={0}
             role="button"
-            aria-label="Pip, the sleepy skull baby. Click or tap to wake a sleepy smile."
+            aria-label="Pip, the sleepy skull baby. Click or tap to wake a sleepy smile. Tap repeatedly to unlock a secret dream!"
             style={{
               transform: `perspective(850px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
             }}
@@ -163,6 +189,14 @@ function Hero() {
               <div className="pip-reaction-bubble" aria-hidden="true">
                 <span className="bubble-star">✦</span>
                 <span className="bubble-heart">💤</span>
+              </div>
+            )}
+
+            {/* Secret Easter Egg Toast on 5 clicks */}
+            {secretToast && (
+              <div className="pip-secret-toast" role="status">
+                <Sparkles size={14} className="secret-sparkle-icon" />
+                <span>{secretToast}</span>
               </div>
             )}
           </div>

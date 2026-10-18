@@ -1,22 +1,84 @@
-import React from 'react';
-import { Heart, Sparkles, Moon, ArrowUp } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Heart, Sparkles, Moon, ArrowUp, Star } from 'lucide-react';
 import './Footer.css';
 import logoImg from '../../assets/pip_avatar_cloud.png';
+import { playStardustFoundSfx } from '../utils/audioSystem.js';
 
-function Footer() {
+function Footer({ onOpenCelebration }) {
+  const [stardustToast, setStardustToast] = useState(null);
+  const clickCountRef = useRef(0);
+  const resetTimerRef = useRef(null);
+  const toastTimerRef = useRef(null);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Repeated clicks on celestial charm (5 clicks)
+  const handleCelestialClick = () => {
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+
+    clickCountRef.current += 1;
+
+    if (clickCountRef.current >= 5) {
+      clickCountRef.current = 0;
+      setStardustToast('You found a little piece of stardust! ✨');
+      playStardustFoundSfx();
+
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+      toastTimerRef.current = setTimeout(() => {
+        setStardustToast(null);
+      }, 5500);
+    } else {
+      resetTimerRef.current = setTimeout(() => {
+        clickCountRef.current = 0;
+      }, 2500);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    };
+  }, []);
+
   return (
     <footer className="footer" id="footer" role="contentinfo">
       <div className="footer-container">
-        {/* Decorative celestial divider */}
-        <div className="footer-divider" aria-hidden="true">
-          <span className="divider-line"></span>
-          <span className="divider-stars">✦ · 🌙 · ✦</span>
-          <span className="divider-line"></span>
+        {/* Decorative celestial divider + Secret Clickable Charm */}
+        <div className="footer-divider">
+          <span className="divider-line" aria-hidden="true"></span>
+          <button
+            type="button"
+            className="divider-stars-btn"
+            onClick={handleCelestialClick}
+            aria-label="Secret celestial star charm. Tap repeatedly to collect hidden stardust."
+            title="A tiny celestial charm... (Tap repeatedly!)"
+          >
+            ✦ · 🌙 · ✦
+          </button>
+          <span className="divider-line" aria-hidden="true"></span>
         </div>
+
+        {/* Secret Stardust Toast */}
+        {stardustToast && (
+          <div className="footer-secret-toast" role="status">
+            <div className="stardust-toast-content">
+              <Sparkles size={16} className="stardust-icon" />
+              <span>{stardustToast}</span>
+            </div>
+            {onOpenCelebration && (
+              <button
+                type="button"
+                className="stardust-celebration-link"
+                onClick={onOpenCelebration}
+              >
+                Launch Dream Celebration 🎮
+              </button>
+            )}
+          </div>
+        )}
 
         {/* Footer Main Content */}
         <div className="footer-content">
@@ -36,6 +98,20 @@ function Footer() {
           </div>
 
           <div className="footer-actions">
+            {/* Mobile / Accessible Konami Celebration Trigger */}
+            {onOpenCelebration && (
+              <button
+                type="button"
+                className="mobile-konami-trigger"
+                onClick={onOpenCelebration}
+                title="Secret Dream Sequence (↑↑↓↓←→←→BA)"
+                aria-label="Unlock Secret Dream Celebration"
+              >
+                <Star size={14} className="konami-star-icon" />
+                <span>Secret Dream Key</span>
+              </button>
+            )}
+
             <button
               type="button"
               className="back-to-top-btn"
