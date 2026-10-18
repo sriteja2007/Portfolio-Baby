@@ -438,3 +438,31 @@
 .workbench-stage {
   width: 100%;
 }
+
+@media (max-width: 600px) {
+  .workbench-tab-bar {
+    border-radius: var(--radius-md);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.75rem;
+    gap: 0.6rem;
+  }
+
+  .workbench-label {
+    font-size: 0.7rem;
+  }
+
+  .workbench-tab-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .workbench-tab-btn {
+    width: 100%;
+    justify-content: flex-start;
+    font-size: 0.8rem;
+    padding: 0.45rem 0.75rem;
+  }
+}

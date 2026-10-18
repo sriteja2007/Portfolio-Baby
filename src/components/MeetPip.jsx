@@ -29,6 +29,8 @@ function MeetPip() {
                 src={portraitImg}
                 alt="Portrait of Pip wearing a starred bedtime nightcap with a pink ribbon"
                 className="portrait-img"
+                loading="lazy"
+                decoding="async"
               />
               <div className="portrait-stars" aria-hidden="true">
                 <span className="cameo-star star-top-left">✦</span>

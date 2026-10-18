@@ -595,3 +595,61 @@
     transform: none;
   }
 }
+
+/* Mobile & Narrow Screen Responsiveness */
+@media (max-width: 640px) {
+  .guestbook-section {
+    padding: 3rem 0.75rem;
+  }
+
+  .guestbook-header-row {
+    padding: 1.5rem 1rem 1rem;
+    gap: 1.25rem;
+  }
+
+  .guestbook-heading {
+    font-size: 1.75rem;
+  }
+
+  .retro-counter-card {
+    min-width: 0;
+    width: 100%;
+    padding: 0.85rem 1rem;
+  }
+
+  .guestbook-privacy-banner {
+    margin: 0.5rem 1rem 1.25rem;
+    padding: 0.65rem 0.85rem;
+    font-size: 0.78rem;
+  }
+
+  .guestbook-grid {
+    padding: 0 1rem 1.75rem;
+    gap: 1.5rem;
+  }
+
+  .guestbook-form-card,
+  .guestbook-feed-card {
+    padding: 1.15rem 0.95rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .odometer-digit {
+    width: 20px;
+    height: 28px;
+    font-size: 1.15rem;
+  }
+
+  .guestbook-topbar {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.68rem;
+  }
+
+  .guestbook-title-bar span {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

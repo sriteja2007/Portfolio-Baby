@@ -397,3 +397,40 @@
   padding: 0.55rem 1rem;
   font-size: 0.85rem;
 }
+
+/* Mobile & Narrow Screen Responsiveness */
+@media (max-width: 480px) {
+  .routes-body {
+    padding: 1.5rem 0.85rem;
+    gap: 1.5rem;
+  }
+
+  .destination-title {
+    font-size: 1.45rem;
+  }
+
+  .dispatch-actions-row {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .launch-flight-btn,
+  .re-deliver-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .routes-window-header {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .routes-header-title {
+    font-size: 0.68rem;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

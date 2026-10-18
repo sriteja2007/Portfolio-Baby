@@ -116,7 +116,13 @@ function NightlightCollection() {
                   onClick={() => setSelectedLampId(lamp.id)}
                 >
                   <div className="lamp-thumb-wrapper">
-                    <img src={lamp.img} alt={lamp.name} className="lamp-thumb-img" />
+                    <img
+                      src={lamp.img}
+                      alt={lamp.name}
+                      className="lamp-thumb-img"
+                      loading="lazy"
+                      decoding="async"
+                    />
                     {isSelected && <span className="selected-check-badge">✦</span>}
                   </div>
                   <div className="lamp-card-info">
@@ -147,6 +153,8 @@ function NightlightCollection() {
                 src={currentLamp.img}
                 alt={currentLamp.alt}
                 className={`chamber-lamp-img ${isOn ? 'lit' : 'unlit'}`}
+                loading="lazy"
+                decoding="async"
               />
             </div>
 

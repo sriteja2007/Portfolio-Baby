@@ -276,7 +276,11 @@ function Guestbook() {
 
                 {/* Status Message */}
                 {statusMsg && (
-                  <div className={`form-status-alert ${statusMsg.type}`} role="alert">
+                  <div
+                    className={`form-status-alert ${statusMsg.type}`}
+                    role="alert"
+                    aria-live="polite"
+                  >
                     {statusMsg.type === 'error' ? (
                       <AlertCircle size={15} />
                     ) : (

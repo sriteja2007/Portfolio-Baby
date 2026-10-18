@@ -92,10 +92,20 @@ body {
 /* Accessibility Focus States */
 a:focus-visible,
 button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
 [tabindex]:focus-visible {
   outline: 3px solid var(--color-berry);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
+}
+
+[data-theme="night"] a:focus-visible,
+[data-theme="night"] button:focus-visible,
+[data-theme="night"] input:focus-visible,
+[data-theme="night"] textarea:focus-visible,
+[data-theme="night"] [tabindex]:focus-visible {
+  outline-color: var(--color-dream);
 }
 
 a {
@@ -301,5 +311,12 @@ img {
   .main-content {
     padding: 1.5rem 1rem 3.5rem;
     gap: 3.5rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .main-content {
+    padding: 1rem 0.65rem 2.5rem;
+    gap: 2.5rem;
   }
 }

@@ -158,8 +158,44 @@
 
 @media (max-width: 480px) {
   .hero-stage {
-    max-width: 320px;
-    height: 330px;
+    max-width: 280px;
+    height: 290px;
+  }
+  .moonlit-glow {
+    width: 270px;
+    height: 270px;
+  }
+  .moonlit-ring {
+    width: 250px;
+    height: 250px;
+  }
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-cta-group .btn-primary,
+  .hero-cta-group .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-stage {
+    max-width: 240px;
+    height: 250px;
+  }
+  .moonlit-glow {
+    width: 230px;
+    height: 230px;
+  }
+  .moonlit-ring {
+    width: 210px;
+    height: 210px;
+  }
+  .hero-floating-chip {
+    font-size: 0.6rem;
+    padding: 0.25rem 0.5rem;
   }
 }
 

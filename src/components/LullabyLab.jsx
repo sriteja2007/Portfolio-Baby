@@ -294,6 +294,8 @@ function LullabyLab({ isActive = true, soundEnabled = false, onToggleSound }) {
               src={boxImg}
               alt="Pip’s handcrafted Lullaby Music Box adorned with star carvings and wind-up key"
               className={`music-box-img ${isPlaying ? 'swaying' : ''}`}
+              loading="lazy"
+              decoding="async"
             />
           </div>
 

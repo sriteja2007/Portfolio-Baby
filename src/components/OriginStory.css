@@ -727,6 +727,14 @@
    Mobile & Reduced Motion Safety
    -------------------------------------------------------------------------- */
 @media (max-width: 640px) {
+  .story-chrome-title {
+    font-size: 0.7rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 180px;
+  }
+
   .story-nav-stepper {
     top: 50px;
     padding: 0.4rem 0.75rem;
@@ -755,6 +763,30 @@
   .scene-village-stage {
     max-width: 100%;
     height: 250px;
+  }
+}
+
+@media (max-width: 360px) {
+  .story-window-chrome {
+    padding: 0.5rem 0.65rem;
+  }
+
+  .story-chrome-title {
+    max-width: 130px;
+    font-size: 0.65rem;
+  }
+
+  .story-progress-pill {
+    font-size: 0.62rem;
+    padding: 0.2rem 0.45rem;
+  }
+
+  .story-scenes-container {
+    padding: 1rem 0.65rem;
+  }
+
+  .story-scene {
+    padding: 1.25rem 0.75rem;
   }
 }
 

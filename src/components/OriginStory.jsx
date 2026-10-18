@@ -180,6 +180,8 @@ function OriginStory() {
                   src={avatarCloudImg}
                   alt="Pip sleeping warmly on a soft cloud blanket as a golden star arrives"
                   className="scene-pip-avatar"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
 
@@ -243,11 +245,23 @@ function OriginStory() {
               {/* Duo Display: Lullaby Box & Glowing Dream Lantern */}
               <div className="workshop-artifacts-pod">
                 <div className="artifact-item box-artifact">
-                  <img src={musicBoxImg} alt="Pip’s singing lullaby music box" className="artifact-img" />
+                  <img
+                    src={musicBoxImg}
+                    alt="Pip’s singing lullaby music box"
+                    className="artifact-img"
+                    loading="lazy"
+                    decoding="async"
+                  />
                   <span className="artifact-tag">Lullaby Box</span>
                 </div>
                 <div className="artifact-item lantern-artifact">
-                  <img src={lanternImg} alt="Pip’s glowing dream lantern" className="artifact-img" />
+                  <img
+                    src={lanternImg}
+                    alt="Pip’s glowing dream lantern"
+                    className="artifact-img"
+                    loading="lazy"
+                    decoding="async"
+                  />
                   <span className="artifact-tag">Dream Lantern</span>
                 </div>
               </div>
@@ -334,6 +348,8 @@ function OriginStory() {
                   src={portraitImg}
                   alt="Pip floating over the rooftops delivering peaceful dreams"
                   className="airborne-pip-img"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <span className="airborne-lantern-glow"></span>
               </div>

@@ -560,3 +560,51 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+/* Mobile & Narrow Screen Responsiveness */
+@media (max-width: 480px) {
+  .lullaby-body {
+    padding: 1.5rem 0.85rem;
+    gap: 1.5rem;
+  }
+
+  .music-box-stage {
+    padding: 1.5rem 1rem;
+  }
+
+  .lab-title {
+    font-size: 1.6rem;
+  }
+
+  .transport-row {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .transport-btn,
+  .stop-btn {
+    width: 100%;
+  }
+
+  .chime-bars {
+    gap: 0.25rem;
+  }
+
+  .chime-note-label {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .lullaby-window-header {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .lullaby-header-title {
+    font-size: 0.68rem;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

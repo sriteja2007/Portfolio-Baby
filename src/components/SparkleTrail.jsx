@@ -15,6 +15,8 @@ function SparkleTrail() {
   const lastPosRef = useRef({ x: 0, y: 0 });
   const idCounterRef = useRef(0);
 
+  const timersRef = useRef(new Set());
+
   useEffect(() => {
     // Respect prefers-reduced-motion
     if (typeof window === 'undefined') return;
@@ -62,15 +64,19 @@ function SparkleTrail() {
       });
 
       // Auto remove this sparkle after animation ends (650ms)
-      setTimeout(() => {
+      const timerId = setTimeout(() => {
         setSparkles((prev) => prev.filter((s) => s.id !== id));
+        timersRef.current.delete(timerId);
       }, 650);
+      timersRef.current.add(timerId);
     };
 
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
 
     return () => {
       window.removeEventListener('pointermove', handlePointerMove);
+      timersRef.current.forEach(clearTimeout);
+      timersRef.current.clear();
     };
   }, []);
 

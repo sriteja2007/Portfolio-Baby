@@ -84,7 +84,13 @@ function Footer({ onOpenCelebration }) {
         <div className="footer-content">
           <div className="footer-brand">
             <div className="footer-logo-row">
-              <img src={logoImg} alt="Pip avatar" className="footer-logo" />
+              <img
+                src={logoImg}
+                alt="Pip avatar logo"
+                className="footer-logo"
+                loading="lazy"
+                decoding="async"
+              />
               <div className="footer-title-group">
                 <span className="footer-title">PipOS — The Little Dream Operating System</span>
                 <span className="footer-tagline">“Good dreams start small.”</span>
