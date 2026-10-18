@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NavBar.css — Retro OS Window Title Bar
+   NavBar.css — Retro OS Window Title Bar with Dream Mode & Sound Controls
    ========================================================================== */
 
 .navbar-container {
@@ -23,7 +23,7 @@
   border: 1.5px solid var(--color-berry);
   border-radius: var(--radius-md);
   box-shadow: 0 4px 12px rgba(92, 64, 51, 0.08);
-  transition: all 0.25s ease;
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 [data-theme="night"] .navbar-window {
@@ -36,7 +36,7 @@
 .navbar-left {
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1.1rem;
 }
 
 .navbar-brand {
@@ -99,7 +99,7 @@
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .nav-link {
@@ -107,7 +107,7 @@
   font-size: 0.88rem;
   font-weight: 500;
   color: var(--color-cocoa);
-  padding: 0.35rem 0.75rem;
+  padding: 0.35rem 0.65rem;
   border-radius: var(--radius-sm);
   transition: all 0.2s ease;
 }
@@ -131,7 +131,7 @@
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 0.75rem;
 }
 
 .nursery-status {
@@ -165,56 +165,152 @@
   animation: pulseGlow 2s infinite ease-in-out;
 }
 
-.theme-toggle {
-  display: flex;
+/* --------------------------------------------------------------------------
+   Sound On / Sound Off Toggle Button
+   -------------------------------------------------------------------------- */
+.sound-toggle-btn {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-sm);
+  gap: 0.4rem;
+  padding: 0.38rem 0.75rem;
   background: var(--color-cream);
-  border: 1px solid rgba(163, 64, 99, 0.2);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-rounded);
+  font-size: 0.76rem;
+  font-weight: 700;
   color: var(--color-cocoa);
-  box-shadow: var(--shadow-sm);
+  cursor: pointer;
   transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
 }
 
-[data-theme="night"] .theme-toggle {
+.sound-toggle-btn.sound-on {
+  border-color: #3cb371;
+  color: #2e7d32;
+  background: #f1f8f3;
+}
+
+[data-theme="night"] .sound-toggle-btn {
   background: var(--bg-surface-soft);
-  color: var(--color-dream);
-  border-color: rgba(244, 213, 141, 0.3);
+  color: var(--text-muted);
 }
 
-.theme-toggle:hover {
-  background: var(--color-berry);
-  color: #ffffff;
+[data-theme="night"] .sound-toggle-btn.sound-on {
+  background: #193120;
+  border-color: #4caf50;
+  color: #a5d6a7;
+}
+
+.sound-toggle-btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-berry);
+}
+
+[data-theme="night"] .sound-toggle-btn:hover {
+  border-color: var(--color-dream);
+}
+
+.sound-icon.on {
+  color: #2e7d32;
+}
+
+[data-theme="night"] .sound-icon.on {
+  color: #81c784;
+}
+
+.sound-icon.off {
+  color: var(--color-cocoa-muted);
+}
+
+[data-theme="night"] .sound-icon.off {
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Clearly Labeled Dream Mode Toggle
+   -------------------------------------------------------------------------- */
+.dream-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem 0.35rem 0.65rem;
+  background: var(--color-cream);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-rounded);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-cocoa);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
+
+.dream-mode-toggle:hover {
+  border-color: var(--color-berry);
   transform: translateY(-1px);
 }
 
-[data-theme="night"] .theme-toggle:hover {
-  background: var(--color-dream);
-  color: var(--color-cocoa);
+.dream-mode-toggle.active {
+  background: #351f3d;
+  color: var(--color-dream);
+  border-color: rgba(244, 213, 141, 0.45);
+  box-shadow: 0 0 12px rgba(244, 213, 141, 0.25);
 }
 
-.theme-icon.moon {
-  color: var(--color-berry);
+.dream-mode-icon.day {
+  color: var(--color-cocoa-muted);
 }
 
-.theme-icon.sun {
+.dream-mode-icon.night {
   color: var(--color-dream);
 }
 
-/* Mobile & Tablet Responsiveness */
-@media (max-width: 768px) {
-  .navbar-container {
-    padding: 0.5rem 0.75rem 0.25rem;
-  }
+/* Physical Pill Track & Knob */
+.toggle-switch-track {
+  width: 28px;
+  height: 16px;
+  border-radius: var(--radius-pill);
+  background: var(--color-blush);
+  border: 1px solid var(--border-color);
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
 
-  .navbar-window {
-    padding: 0.5rem 0.75rem;
-    gap: 0.5rem;
-  }
+.dream-mode-toggle.active .toggle-switch-track {
+  background: var(--color-berry);
+  border-color: var(--color-dream);
+}
 
+.toggle-switch-knob {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-berry);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.25s ease;
+}
+
+.dream-mode-toggle.active .toggle-switch-knob {
+  transform: translateX(12px);
+  background: var(--color-dream);
+  box-shadow: 0 0 6px var(--color-dream);
+}
+
+/* --------------------------------------------------------------------------
+   Mobile Responsiveness
+   -------------------------------------------------------------------------- */
+@media (max-width: 860px) {
+  .status-text {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
   .window-dots {
     display: none;
   }
@@ -223,20 +319,43 @@
     display: none;
   }
 
-  .nav-links {
-    gap: 0.15rem;
-  }
-
-  .nav-link {
-    font-size: 0.8rem;
-    padding: 0.25rem 0.45rem;
-  }
-
-  .status-text {
+  .nursery-status {
     display: none;
   }
 
-  .nursery-status {
-    padding: 0.35rem 0.45rem;
+  .sound-toggle-label {
+    display: none;
+  }
+
+  .sound-toggle-btn {
+    padding: 0.38rem 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-container {
+    padding: 0.4rem 0.5rem 0.2rem;
+  }
+
+  .navbar-window {
+    padding: 0.45rem 0.65rem;
+    gap: 0.4rem;
+  }
+
+  .navbar-left {
+    gap: 0.45rem;
+  }
+
+  .nav-link {
+    font-size: 0.78rem;
+    padding: 0.25rem 0.38rem;
+  }
+
+  .dream-mode-label {
+    display: none;
+  }
+
+  .dream-mode-toggle {
+    padding: 0.35rem 0.55rem;
   }
 }

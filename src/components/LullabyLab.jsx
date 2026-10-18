@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, Square, Volume2, VolumeX, Sparkles, Moon, Cloud, Music, Radio } from 'lucide-react';
 import './LullabyLab.css';
 import boxImg from '../../assets/pip_lullaby_box.png';
+import { getAudioContext } from '../utils/audioSystem.js';
 
 // Gentle pentatonic lullaby melodies (frequencies in Hz)
 const MOOD_MELODIES = {
@@ -56,10 +57,9 @@ const MOOD_MELODIES = {
   },
 };
 
-function LullabyLab({ isActive = true }) {
+function LullabyLab({ isActive = true, soundEnabled = false, onToggleSound }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentMood, setCurrentMood] = useState('stardust');
-  const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(0.7);
   const [activeNoteIdx, setActiveNoteIdx] = useState(-1);
   const [audioSupported, setAudioSupported] = useState(true);
@@ -70,16 +70,17 @@ function LullabyLab({ isActive = true }) {
   const noteIndexRef = useRef(0);
   const activeOscsRef = useRef([]);
 
+  const isMuted = !soundEnabled;
+
   // Initialize Web Audio API safely on first user action
   const initAudio = () => {
     if (audioCtxRef.current) return true;
     try {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContextClass) {
+      const ctx = getAudioContext();
+      if (!ctx) {
         setAudioSupported(false);
         return false;
       }
-      const ctx = new AudioContextClass();
       const gain = ctx.createGain();
       gain.gain.setValueAtTime(isMuted ? 0 : volume, ctx.currentTime);
       gain.connect(ctx.destination);
@@ -167,6 +168,9 @@ function LullabyLab({ isActive = true }) {
 
   // Start Playback
   const handlePlay = () => {
+    if (!soundEnabled && onToggleSound) {
+      onToggleSound();
+    }
     if (!initAudio()) return;
 
     if (audioCtxRef.current && audioCtxRef.current.state === 'suspended') {
@@ -213,19 +217,24 @@ function LullabyLab({ isActive = true }) {
     setVolume(newVol);
     if (masterGainRef.current && audioCtxRef.current) {
       const now = audioCtxRef.current.currentTime;
-      masterGainRef.current.gain.setValueAtTime(isMuted ? 0 : newVol, now);
+      masterGainRef.current.gain.setValueAtTime(soundEnabled ? newVol : 0, now);
     }
   };
 
-  // Mute / Unmute Toggle
+  // Mute / Unmute Toggle syncs with global sound switch
   const toggleMute = () => {
-    const nextMute = !isMuted;
-    setIsMuted(nextMute);
-    if (masterGainRef.current && audioCtxRef.current) {
-      const now = audioCtxRef.current.currentTime;
-      masterGainRef.current.gain.setValueAtTime(nextMute ? 0 : volume, now);
+    if (onToggleSound) {
+      onToggleSound();
     }
   };
+
+  // Update master gain whenever soundEnabled changes
+  useEffect(() => {
+    if (masterGainRef.current && audioCtxRef.current) {
+      const now = audioCtxRef.current.currentTime;
+      masterGainRef.current.gain.setValueAtTime(soundEnabled ? volume : 0, now);
+    }
+  }, [soundEnabled]);
 
   // Lifecycle Cleanup: stop sound when component unmounts or becomes inactive
   useEffect(() => {

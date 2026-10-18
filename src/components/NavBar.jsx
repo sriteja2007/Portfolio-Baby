@@ -1,9 +1,9 @@
 import React from 'react';
-import { Moon, Sun, Sparkles } from 'lucide-react';
+import { Moon, Sun, Volume2, VolumeX, Sparkles } from 'lucide-react';
 import './NavBar.css';
 import logoImg from '../../assets/pip_avatar_cloud.png';
 
-function NavBar({ theme, onToggleTheme }) {
+function NavBar({ theme, onToggleTheme, soundEnabled, onToggleSound }) {
   const isNight = theme === 'night';
 
   return (
@@ -29,26 +29,47 @@ function NavBar({ theme, onToggleTheme }) {
 
           <nav className="nav-links" aria-label="Primary navigation">
             <a href="#about" className="nav-link">About</a>
-            <a href="#projects" className="nav-link">Projects</a>
             <a href="#story" className="nav-link">Story</a>
+            <a href="#projects" className="nav-link">Projects</a>
           </nav>
         </div>
 
-        {/* Right: Nursery Status Pill + Theme Toggle */}
+        {/* Right: Sound Toggle + Dream Mode Toggle + Status */}
         <div className="navbar-right">
           <div className="nursery-status" title="Midnight Nursery Connection">
             <span className="status-dot"></span>
             <span className="status-text">MIDNIGHT NURSERY / ONLINE</span>
           </div>
 
+          {/* Sound On / Sound Off Control */}
           <button
             type="button"
-            className="theme-toggle"
-            onClick={onToggleTheme}
-            aria-label={isNight ? 'Switch to Day Shift Mode' : 'Switch to Night Shift Mode'}
-            title={isNight ? 'Switch to Day Shift' : 'Switch to Night Shift'}
+            className={`sound-toggle-btn ${soundEnabled ? 'sound-on' : 'sound-off'}`}
+            onClick={onToggleSound}
+            aria-label={soundEnabled ? 'Mute all interface sounds' : 'Enable interface sounds'}
+            aria-pressed={soundEnabled}
+            title={soundEnabled ? 'Interface Sound Active' : 'Interface Sound Disabled'}
           >
-            {isNight ? <Sun size={18} className="theme-icon sun" /> : <Moon size={18} className="theme-icon moon" />}
+            {soundEnabled ? <Volume2 size={16} className="sound-icon on" /> : <VolumeX size={16} className="sound-icon off" />}
+            <span className="sound-toggle-label">{soundEnabled ? 'Sound On' : 'Sound Off'}</span>
+          </button>
+
+          {/* Clearly Labeled Dream Mode Toggle */}
+          <button
+            type="button"
+            role="switch"
+            aria-checked={isNight}
+            className={`dream-mode-toggle ${isNight ? 'active' : ''}`}
+            onClick={onToggleTheme}
+            aria-label={isNight ? 'Dream Mode is on. Click to switch to day shift mode' : 'Dream Mode is off. Click to enable nighttime dream mode'}
+            title={isNight ? 'Disable Dream Mode (Switch to Day)' : 'Enable Dream Mode (Nighttime)'}
+          >
+            {isNight ? <Moon size={15} className="dream-mode-icon night" /> : <Sun size={15} className="dream-mode-icon day" />}
+            <span className="dream-mode-label">Dream Mode</span>
+            <span className="toggle-switch-track" aria-hidden="true">
+              <span className="toggle-switch-knob"></span>
+            </span>
+            <span className="sr-only">{isNight ? 'Dream Mode enabled' : 'Dream Mode disabled'}</span>
           </button>
         </div>
       </div>

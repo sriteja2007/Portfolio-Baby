@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Compass, Send, CheckCircle, RefreshCw, Sparkles, Moon, MapPin, Heart } from 'lucide-react';
 import './DreamDeliveryRoutes.css';
 import pipCloudImg from '../../assets/pip_avatar_cloud.png';
+import { playDeliveryCompleteSfx } from '../utils/audioSystem.js';
 
 const DESTINATIONS = [
   {
@@ -86,6 +87,7 @@ function DreamDeliveryRoutes() {
         animationFrameRef.current = requestAnimationFrame(animateFlight);
       } else {
         setDeliveryState('completed');
+        playDeliveryCompleteSfx();
       }
     };
 

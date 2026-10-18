@@ -54,7 +54,7 @@ const PROJECT_CARDS = [
   },
 ];
 
-function Projects() {
+function Projects({ soundEnabled, onToggleSound }) {
   const [activeProjectId, setActiveProjectId] = useState('lullaby');
 
   const handleCardClick = (id) => {
@@ -181,7 +181,13 @@ function Projects() {
 
         {/* Live Active Workshop Component */}
         <div className="workbench-stage" role="tabpanel">
-          {activeProjectId === 'lullaby' && <LullabyLab isActive={activeProjectId === 'lullaby'} />}
+          {activeProjectId === 'lullaby' && (
+            <LullabyLab
+              isActive={activeProjectId === 'lullaby'}
+              soundEnabled={soundEnabled}
+              onToggleSound={onToggleSound}
+            />
+          )}
           {activeProjectId === 'nightlight' && <NightlightCollection isActive={activeProjectId === 'nightlight'} />}
           {activeProjectId === 'routes' && <DreamDeliveryRoutes isActive={activeProjectId === 'routes'} />}
         </div>

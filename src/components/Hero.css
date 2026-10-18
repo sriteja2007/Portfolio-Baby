@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Hero.css — Upgraded Moonlit Character Stage & Composition
+   Hero.css — Upgraded Moonlit Character Stage & Interactive Pip Reactions
    ========================================================================== */
 
 .hero {
@@ -153,6 +153,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  perspective: 1000px;
 }
 
 @media (max-width: 480px) {
@@ -177,9 +178,10 @@
     rgba(241, 217, 227, 0.5) 45%,
     rgba(255, 248, 241, 0) 72%
   );
-  filter: blur(8px);
+  filter: blur(10px);
   z-index: 1;
   pointer-events: none;
+  transition: transform 0.15s ease-out;
 }
 
 [data-theme="night"] .moonlit-glow {
@@ -283,7 +285,9 @@
   animation: dreamDrift 8s infinite ease-in-out reverse;
 }
 
-/* Pip Character Art */
+/* --------------------------------------------------------------------------
+   Pip Character Art with Interactive Gaze & Reaction
+   -------------------------------------------------------------------------- */
 .pip-character-container {
   position: relative;
   z-index: 4;
@@ -292,21 +296,112 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: dreamDrift 5s ease-in-out infinite;
+  cursor: pointer;
+  outline: none;
+  border-radius: var(--radius-lg);
+  transition: transform 0.14s ease-out;
+  transform-style: preserve-3d;
+}
+
+.pip-character-container:focus-visible {
+  outline: 3px solid var(--color-berry);
+  outline-offset: 4px;
+}
+
+[data-theme="night"] .pip-character-container:focus-visible {
+  outline-color: var(--color-dream);
+}
+
+.pip-character-container.is-reacting {
+  animation: sleepyNod 0.75s ease-in-out;
+}
+
+@keyframes sleepyNod {
+  0% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.06) rotate(-3deg); }
+  60% { transform: scale(0.97) rotate(2deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Ambient Eye Glow Halo */
+.pip-eye-aura {
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 130px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 213, 141, 0.45) 0%, rgba(244, 213, 141, 0) 70%);
+  filter: blur(14px);
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease, transform 0.15s ease-out;
+  opacity: 0.7;
+}
+
+.pip-eye-aura.bright {
+  opacity: 1;
+  filter: blur(8px);
+  background: radial-gradient(circle, rgba(244, 213, 141, 0.75) 0%, rgba(244, 213, 141, 0) 70%);
 }
 
 .pip-character-img {
+  position: relative;
+  z-index: 2;
   width: 92%;
   height: 92%;
   object-fit: contain;
   filter: drop-shadow(0 14px 22px rgba(92, 64, 51, 0.18));
   user-select: none;
   pointer-events: auto;
-  transition: transform 0.3s ease;
+  transition: filter 0.3s ease;
 }
 
 .pip-character-container:hover .pip-character-img {
-  transform: scale(1.03) rotate(-1deg);
+  filter: drop-shadow(0 16px 26px rgba(163, 64, 99, 0.28));
+}
+
+/* Sleepy Reaction Bubble */
+.pip-reaction-bubble {
+  position: absolute;
+  top: 15%;
+  right: 18%;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 12px rgba(92, 64, 51, 0.15);
+  animation: bubblePopFloat 0.8s forwards ease-out;
+  z-index: 6;
+  pointer-events: none;
+}
+
+@keyframes bubblePopFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.6);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-28px) scale(0.9);
+  }
+}
+
+.bubble-star {
+  color: var(--color-dream);
+  font-size: 0.9rem;
+}
+
+.bubble-heart {
+  font-size: 0.9rem;
 }
 
 /* Soft Ground Shadow */
@@ -353,4 +448,17 @@
 
 [data-theme="night"] .chip-moon {
   color: var(--color-dream);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pip-character-container {
+    transition: none !important;
+    transform: none !important;
+  }
+  .pip-character-container.is-reacting {
+    animation: none !important;
+  }
+  .moonlit-glow {
+    transition: none !important;
+  }
 }
