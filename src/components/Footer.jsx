@@ -9,7 +9,7 @@ function Footer() {
   };
 
   return (
-    <footer className="footer" id="story" role="contentinfo">
+    <footer className="footer" id="footer" role="contentinfo">
       <div className="footer-container">
         {/* Decorative celestial divider */}
         <div className="footer-divider" aria-hidden="true">
