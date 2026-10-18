@@ -1,0 +1,356 @@
+/* ==========================================================================
+   Hero.css — Upgraded Moonlit Character Stage & Composition
+   ========================================================================== */
+
+.hero {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3.5rem;
+  padding: 1.5rem 0 2.5rem;
+  position: relative;
+  width: 100%;
+}
+
+@media (min-width: 900px) {
+  .hero {
+    flex-direction: row;
+    align-items: center;
+    gap: 4rem;
+    padding: 2.5rem 0 3.5rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Left: Text Content Column
+   -------------------------------------------------------------------------- */
+.hero-content {
+  flex: 1;
+  max-width: 580px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.hero-title {
+  font-family: var(--font-editorial);
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--color-cocoa);
+}
+
+[data-theme="night"] .hero-title {
+  color: #fff9f4;
+}
+
+.hero-title-accent {
+  color: var(--color-berry);
+  font-style: italic;
+  display: inline-block;
+  position: relative;
+}
+
+[data-theme="night"] .hero-title-accent {
+  color: var(--color-dream);
+}
+
+.hero-intro {
+  font-size: 1.12rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  max-width: 520px;
+}
+
+/* Status Row & Badges */
+.hero-status-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-dream);
+  color: var(--color-cocoa);
+  font-family: var(--font-rounded);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(92, 64, 51, 0.12);
+}
+
+[data-theme="night"] .hero-badge {
+  background: rgba(244, 213, 141, 0.2);
+  color: var(--color-dream);
+  border-color: rgba(244, 213, 141, 0.35);
+}
+
+.badge-glow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-berry);
+  box-shadow: 0 0 6px var(--color-berry);
+}
+
+[data-theme="night"] .badge-glow-dot {
+  background: var(--color-dream);
+  box-shadow: 0 0 8px var(--color-dream);
+}
+
+.hero-tagline {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--color-berry);
+}
+
+[data-theme="night"] .hero-tagline {
+  color: var(--color-dream-soft);
+}
+
+/* CTA Group */
+.hero-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn-heart {
+  color: var(--color-berry);
+  transition: transform 0.2s ease;
+}
+
+.btn-secondary:hover .btn-heart {
+  transform: scale(1.2);
+}
+
+/* --------------------------------------------------------------------------
+   Right: The Moonlit Composition Character Stage
+   -------------------------------------------------------------------------- */
+.hero-stage-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-stage {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  height: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .hero-stage {
+    max-width: 320px;
+    height: 330px;
+  }
+}
+
+/* Soft Moonlit Background Glow & Ring */
+.moonlit-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 380px;
+  height: 380px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(244, 213, 141, 0.45) 0%,
+    rgba(241, 217, 227, 0.5) 45%,
+    rgba(255, 248, 241, 0) 72%
+  );
+  filter: blur(8px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+[data-theme="night"] .moonlit-glow {
+  background: radial-gradient(
+    circle,
+    rgba(244, 213, 141, 0.25) 0%,
+    rgba(163, 64, 99, 0.35) 45%,
+    rgba(31, 21, 36, 0) 72%
+  );
+}
+
+.moonlit-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 340px;
+  height: 340px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1.5px dashed rgba(163, 64, 99, 0.2);
+  z-index: 1;
+  pointer-events: none;
+}
+
+[data-theme="night"] .moonlit-ring {
+  border-color: rgba(244, 213, 141, 0.22);
+}
+
+/* Floating CSS Stars */
+.floating-star {
+  position: absolute;
+  color: var(--color-dream);
+  text-shadow: 0 0 8px rgba(244, 213, 141, 0.7);
+  z-index: 3;
+  user-select: none;
+  pointer-events: none;
+  animation: starTwinkle 3s infinite ease-in-out;
+}
+
+.star-1 {
+  top: 8%;
+  left: 12%;
+  font-size: 1.4rem;
+  animation-delay: 0s;
+  color: var(--color-berry-light);
+}
+
+.star-2 {
+  top: 15%;
+  right: 10%;
+  font-size: 1.1rem;
+  animation-delay: 1.2s;
+  color: var(--color-dream);
+}
+
+.star-3 {
+  bottom: 22%;
+  left: 6%;
+  font-size: 1.25rem;
+  animation-delay: 0.7s;
+  color: var(--color-dream);
+}
+
+.star-4 {
+  bottom: 28%;
+  right: 8%;
+  font-size: 1.35rem;
+  animation-delay: 1.9s;
+  color: var(--color-blush);
+}
+
+/* Floating Decorative CSS Clouds */
+.floating-cloud {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(92, 64, 51, 0.08);
+  opacity: 0.85;
+  z-index: 2;
+  pointer-events: none;
+}
+
+[data-theme="night"] .floating-cloud {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.cloud-left {
+  width: 90px;
+  height: 28px;
+  bottom: 16%;
+  left: 2%;
+  animation: dreamDrift 7s infinite ease-in-out;
+}
+
+.cloud-right {
+  width: 105px;
+  height: 32px;
+  bottom: 14%;
+  right: 4%;
+  animation: dreamDrift 8s infinite ease-in-out reverse;
+}
+
+/* Pip Character Art */
+.pip-character-container {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: dreamDrift 5s ease-in-out infinite;
+}
+
+.pip-character-img {
+  width: 92%;
+  height: 92%;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 22px rgba(92, 64, 51, 0.18));
+  user-select: none;
+  pointer-events: auto;
+  transition: transform 0.3s ease;
+}
+
+.pip-character-container:hover .pip-character-img {
+  transform: scale(1.03) rotate(-1deg);
+}
+
+/* Soft Ground Shadow */
+.hero-ground-shadow {
+  position: absolute;
+  bottom: 4%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(92, 64, 51, 0.16) 0%, rgba(92, 64, 51, 0) 70%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Retro OS Floating Chip */
+.hero-floating-chip {
+  position: absolute;
+  bottom: 2%;
+  right: 0%;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-rounded);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--color-cocoa);
+  box-shadow: var(--shadow-sm);
+  z-index: 5;
+}
+
+[data-theme="night"] .hero-floating-chip {
+  color: var(--color-dream);
+}
+
+.chip-moon {
+  color: var(--color-berry);
+}
+
+[data-theme="night"] .chip-moon {
+  color: var(--color-dream);
+}

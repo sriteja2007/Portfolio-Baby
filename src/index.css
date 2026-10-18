@@ -1,0 +1,300 @@
+/* ==========================================================================
+   PipOS — The Little Dream Operating System
+   Brand Stylesheet & Design System
+   ========================================================================== */
+
+:root {
+  /* Official Brand Colors */
+  --color-cream: #fff8f1;
+  --color-cream-card: #ffffff;
+  --color-cream-dim: #faefe4;
+  --color-berry: #a34063;
+  --color-berry-deep: #782643;
+  --color-berry-light: #be537c;
+  --color-cocoa: #5c4033;
+  --color-cocoa-light: #7a5847;
+  --color-cocoa-muted: #8d6d5c;
+  --color-blush: #f1d9e3;
+  --color-blush-soft: #fbebf2;
+  --color-dream: #f4d58d;
+  --color-dream-soft: #fcf1d3;
+
+  /* Semantic UI Tokens */
+  --bg-primary: var(--color-cream);
+  --bg-surface: #ffffff;
+  --bg-surface-soft: var(--color-blush-soft);
+  --text-main: var(--color-cocoa);
+  --text-muted: var(--color-cocoa-muted);
+  --text-accent: var(--color-berry);
+  --border-color: rgba(163, 64, 99, 0.18);
+  --border-strong: var(--color-berry);
+  --shadow-sm: 0 2px 6px rgba(92, 64, 51, 0.05);
+  --shadow-md: 0 8px 20px rgba(92, 64, 51, 0.08);
+  --shadow-lg: 0 16px 36px rgba(92, 64, 51, 0.12);
+  --shadow-dream: 0 0 24px rgba(244, 213, 141, 0.35);
+
+  /* Typography */
+  --font-editorial: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-rounded: 'Fredoka', 'Quicksand', 'Arial Rounded MT Bold', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  /* Layout */
+  --container-max: 1200px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 9999px;
+}
+
+/* Cozy Night Shift Theme */
+[data-theme="night"] {
+  --bg-primary: #1f1524;
+  --bg-surface: #2b1d31;
+  --bg-surface-soft: #382440;
+  --text-main: #fcf5ee;
+  --text-muted: #d4b8ca;
+  --text-accent: #f4d58d;
+  --border-color: rgba(244, 213, 141, 0.25);
+  --border-strong: #f4d58d;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
+  --shadow-dream: 0 0 30px rgba(244, 213, 141, 0.25);
+}
+
+/* Reset & Base Elements */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 15% 20%, rgba(241, 217, 227, 0.35) 0%, transparent 40%),
+    radial-gradient(circle at 85% 65%, rgba(244, 213, 141, 0.25) 0%, transparent 45%);
+  background-attachment: fixed;
+}
+
+/* Accessibility Focus States */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--color-berry);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: var(--font-rounded);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Main Layout Shell */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+/* Shared UI Components */
+.eyebrow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-rounded);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-berry);
+  background: var(--color-blush);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(163, 64, 99, 0.25);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="night"] .eyebrow-badge {
+  background: rgba(241, 217, 227, 0.15);
+  color: var(--color-dream);
+  border-color: rgba(244, 213, 141, 0.3);
+}
+
+/* Primary and Secondary Action Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background-color: var(--color-berry);
+  color: #ffffff;
+  padding: 0.85rem 1.6rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-rounded);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 14px rgba(163, 64, 99, 0.32);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border: 1.5px solid transparent;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-berry-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(163, 64, 99, 0.42);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background-color: var(--color-cream);
+  color: var(--color-cocoa);
+  padding: 0.85rem 1.6rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-rounded);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 1.5px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-blush);
+  border-color: var(--color-berry);
+  color: var(--color-berry);
+  transform: translateY(-2px);
+}
+
+[data-theme="night"] .btn-secondary {
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+
+[data-theme="night"] .btn-secondary:hover {
+  background-color: var(--bg-surface-soft);
+  color: var(--color-dream);
+  border-color: var(--color-dream);
+}
+
+/* Whimsical Retro OS Window Top Bar */
+.window-chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1rem;
+  background: var(--color-blush);
+  border-bottom: 1.5px solid var(--border-color);
+  font-family: var(--font-rounded);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.window-dots {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.window-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-red { background: #e06c75; }
+.dot-amber { background: #e5c07b; }
+.dot-green { background: #98c379; }
+
+/* Gentle Floating Animations */
+@keyframes dreamDrift {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+@keyframes starTwinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(244, 213, 141, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(244, 213, 141, 0.85);
+  }
+}
+
+/* Reduced Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1.5rem 1rem 3.5rem;
+    gap: 3.5rem;
+  }
+}

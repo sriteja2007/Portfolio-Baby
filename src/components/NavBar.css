@@ -1,0 +1,242 @@
+/* ==========================================================================
+   NavBar.css — Retro OS Window Title Bar
+   ========================================================================== */
+
+.navbar-container {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  padding: 0.75rem 1.25rem 0.25rem;
+  backdrop-filter: blur(8px);
+}
+
+.navbar-window {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 1.25rem;
+  background: var(--color-blush);
+  border: 1.5px solid var(--color-berry);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(92, 64, 51, 0.08);
+  transition: all 0.25s ease;
+}
+
+[data-theme="night"] .navbar-window {
+  background: var(--bg-surface);
+  border-color: rgba(244, 213, 141, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Left Group */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.logo-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--color-cream);
+  border: 1px solid rgba(163, 64, 99, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(92, 64, 51, 0.1);
+}
+
+.logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.brand-text {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.brand-title {
+  font-family: var(--font-rounded);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--color-berry);
+  letter-spacing: -0.01em;
+}
+
+[data-theme="night"] .brand-title {
+  color: var(--color-dream);
+}
+
+.brand-ver {
+  font-family: var(--font-rounded);
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--color-cocoa-muted);
+  opacity: 0.85;
+}
+
+[data-theme="night"] .brand-ver {
+  color: var(--text-muted);
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.nav-link {
+  font-family: var(--font-rounded);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--color-cocoa);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+[data-theme="night"] .nav-link {
+  color: var(--text-main);
+}
+
+.nav-link:hover {
+  background: var(--color-cream);
+  color: var(--color-berry);
+  transform: translateY(-1px);
+}
+
+[data-theme="night"] .nav-link:hover {
+  background: rgba(244, 213, 141, 0.15);
+  color: var(--color-dream);
+}
+
+/* Right Group */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.nursery-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--color-cream);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(163, 64, 99, 0.2);
+  font-family: var(--font-rounded);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-cocoa);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="night"] .nursery-status {
+  background: var(--bg-surface-soft);
+  color: var(--text-main);
+  border-color: rgba(244, 213, 141, 0.2);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #3cb371;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(60, 179, 113, 0.8);
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--color-cream);
+  border: 1px solid rgba(163, 64, 99, 0.2);
+  color: var(--color-cocoa);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+[data-theme="night"] .theme-toggle {
+  background: var(--bg-surface-soft);
+  color: var(--color-dream);
+  border-color: rgba(244, 213, 141, 0.3);
+}
+
+.theme-toggle:hover {
+  background: var(--color-berry);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+[data-theme="night"] .theme-toggle:hover {
+  background: var(--color-dream);
+  color: var(--color-cocoa);
+}
+
+.theme-icon.moon {
+  color: var(--color-berry);
+}
+
+.theme-icon.sun {
+  color: var(--color-dream);
+}
+
+/* Mobile & Tablet Responsiveness */
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0.5rem 0.75rem 0.25rem;
+  }
+
+  .navbar-window {
+    padding: 0.5rem 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .window-dots {
+    display: none;
+  }
+
+  .brand-ver {
+    display: none;
+  }
+
+  .nav-links {
+    gap: 0.15rem;
+  }
+
+  .nav-link {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.45rem;
+  }
+
+  .status-text {
+    display: none;
+  }
+
+  .nursery-status {
+    padding: 0.35rem 0.45rem;
+  }
+}
